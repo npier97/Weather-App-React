@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Location from "./components/location";
-import Temperature from './components/temperature';
-import errorMessage from './components/error-message';
+import { Location } from "./components/location";
+import { Temperature } from './components/temperature';
+import { errorMessage } from './components/error-message';
 
-const App = () => {
+export const App = () => {
   window.onload = () => {
     let long;
     let lat;
@@ -65,5 +65,3 @@ const App = () => {
     </div>
   );
 }
-
-export default App;

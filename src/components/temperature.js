@@ -8,7 +8,7 @@ const defaults = {
   animate: true
 };
 
-const Temperature = (props) => {
+export const Temperature = (props) => {
 
   return(
     <div className="temperature">
@@ -27,5 +27,3 @@ const Temperature = (props) => {
     </div>
   );
 }
-
-export default Temperature;
