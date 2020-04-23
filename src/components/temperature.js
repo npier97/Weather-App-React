@@ -1,23 +1,24 @@
-import React from 'react';
-import ReactAnimatedWeather from 'react-animated-weather';
+import React from "react";
+import ReactAnimatedWeather from "react-animated-weather";
 
 const defaults = {
-  icon: 'CLEAR_DAY',
-  color: 'goldenrod',
+  icon: "CLEAR_DAY",
+  color: "goldenrod",
   size: 100,
-  animate: true
+  animate: true,
 };
 
 export const Temperature = (props) => {
   return (
     <div className="temperature" onClick={props.onClick}>
       <div className="degree-section">
-        <h2 className="temperature-degree">{props.temperature}</h2>
+        <h2 className="temperature-degree">{props.degrees}</h2>
         <span className="scale">{props.scale}</span>
       </div>
       <div className="description">{props.message}</div>
 
-      <ReactAnimatedWeather className="weatherIcon"
+      <ReactAnimatedWeather
+        className="weatherIcon"
         icon={defaults.icon}
         color={defaults.color}
         size={defaults.size}
@@ -25,4 +26,4 @@ export const Temperature = (props) => {
       />
     </div>
   );
-}
+};
