@@ -9,12 +9,11 @@ const defaults = {
 };
 
 export const Temperature = (props) => {
-
-  return(
-    <div className="temperature">
+  return (
+    <div className="temperature" onClick={props.onClick}>
       <div className="degree-section">
         <h2 className="temperature-degree">{props.temperature}</h2>
-          <span className="scale">{props.scale}</span>
+        <span className="scale">{props.scale}</span>
       </div>
       <div className="description">{props.message}</div>
 
