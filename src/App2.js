@@ -1,26 +1,16 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import { errorMessage } from "./components/error-message";
+import { ErrorMessage } from "./components/error-message";
 import { Location } from "./components/location";
 import { Temperature } from "./components/temperature";
 
 export const App = () => {
-  // const [data, setData] = useState({
-  //   degrees: "",
-  //   fahrenheit: "",
-  //   celsius: "",
-  //   localTime: "",
-  //   message: "",
-  // }); IS THERE A WAY TO REGROUP THEM ? AND THEN USE LIKE:
-  // e.g. line 51 setData({ degrees: temperature }); / setData({ message: summary });
-  // => Probably will get the same error I had at the beginning = "Error: Objects are not valid as a React child"
-
   const [degrees, setDegrees] = useState("");
   const [fahrenheit, setFahrenheit] = useState("");
   const [celsius, setCelsius] = useState("");
   const [localTime, setLocalTime] = useState("");
   const [message, setMessage] = useState("");
   const [scale, setScale] = useState("°F");
+  const [isLocationEnabled, setLocation] = useState(false);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -47,31 +37,30 @@ export const App = () => {
             setLocalTime(timezone);
             setFahrenheit(temperature);
             setCelsius(fahrenheitToCelsius);
+            setLocation(true);
           });
       });
-    } else {
-      console.log("txt");
-      ReactDOM.render(
-        errorMessage(),
-        document.getElementsByClassName("mainTitle")
-      );
     }
-  });
+  }, []);
+
+  const handleClick = () => {
+    console.log("click");
+    if (scale === "°F") {
+      setScale("°C");
+      setDegrees(celsius);
+    } else {
+      setScale("°F");
+      setDegrees(fahrenheit);
+    }
+  };
 
   return (
     <div className="parentElement">
       <h1 className="mainTitle">Weather Today</h1>
-      <Location />
+      {!isLocationEnabled && <ErrorMessage />}
+      <Location timezone={localTime} />
       <Temperature
-        onClick={() => {
-          if (scale === "°F") {
-            setScale({ scale: "°C" });
-            setDegrees({ temperature: celsius });
-          } else {
-            setScale({ scale: "°F" });
-            setDegrees({ temperature: fahrenheit });
-          }
-        }}
+        onClick={handleClick}
         degrees={degrees}
         scale={scale}
         message={message}
