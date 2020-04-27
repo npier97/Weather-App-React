@@ -1,31 +1,44 @@
-import React from 'react';
-import ReactAnimatedWeather from 'react-animated-weather';
+import PropTypes from "prop-types";
+import React from "react";
+import ReactAnimatedWeather from "react-animated-weather";
 
-const defaults = {
-  icon: 'CLEAR_DAY',
-  color: 'goldenrod',
+export const Temperature = ({
+  onClick,
+  degrees,
+  scale,
+  message,
+  icon,
+  color,
+  size,
+  animate,
+}) => (
+  <div className="temperature" onClick={onClick}>
+    <div className="degree-section">
+      <h2 className="temperature-degree">{degrees}</h2>
+      <span className="scale">{scale}</span>
+    </div>
+    <div className="description">{message}</div>
+
+    <ReactAnimatedWeather
+      className="weatherIcon"
+      icon={icon}
+      color={color}
+      size={size}
+      animate={animate}
+    />
+  </div>
+);
+
+Temperature.defaultProps = {
+  icon: "CLEAR_DAY",
+  color: "goldenrod",
   size: 100,
-  animate: true
+  animate: true,
 };
 
-const Temperature = (props) => {
-
-  return(
-    <div className="temperature">
-      <div className="degree-section">
-        <h2 className="temperature-degree">{props.temperature}</h2>
-          <span className="scale">{props.scale}</span>
-      </div>
-      <div className="description">{props.message}</div>
-
-      <ReactAnimatedWeather className="weatherIcon"
-        icon={defaults.icon}
-        color={defaults.color}
-        size={defaults.size}
-        animate={defaults.animate}
-      />
-    </div>
-  );
-}
-
-export default Temperature;
+Temperature.propTypes = {
+  onClick: PropTypes.func,
+  degrees: PropTypes.number,
+  scale: PropTypes.string,
+  message: PropTypes.string,
+};
